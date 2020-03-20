@@ -1,5 +1,5 @@
 # Get User Média
-Manipular Câmera e áudio com javascript
-Gravar vídeo e áudio
-Download e Upload das mídia.
-Galeria de fotos e vídeos
+<p>Manipular Câmera e áudio com javascript.</p>
+<p>Gravar vídeo e áudio.</p>
+<p>Download e Upload das mídia.</p>
+<p>Galeria de fotos e vídeos.</p>
