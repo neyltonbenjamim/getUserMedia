@@ -1,2 +1,5 @@
-# getUserMedia
-Manipular Câmera e áudio com javascript, gravar vídeo e áudio, para fazer download ou upload
+# Get User Média
+Manipular Câmera e áudio com javascript
+Gravar vídeo e áudio
+Download e Upload das mídia.
+Galeria de fotos e vídeos
