@@ -66,8 +66,27 @@
     height: calc(100% - 42px);
     width: 100%;
     background-color: rgba(0,0,0,0.3);
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center
 }
 
 .full-modal-hide{
     display: none;
+}
+
+.modal{
+    display: flex;
+    flex-flow: column;
+    width: 90%;
+    height: 80%;
+    background-color: #fbfbfb;;
+    border-radius: 5px;
+    box-shadow: 0 0 7px rgba(0,0,0,0.6),0 0 10px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+
+.modal video{
+    width: 100%;
 }
