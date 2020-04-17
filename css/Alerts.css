@@ -1,0 +1,128 @@
+
+
+.alerts_background{
+    position: fixed;
+    max-width: 450px;
+    width: 90%;
+    max-height: 100%;
+    right: 0;
+    top: 0;
+    /*padding-top: 20px;*/
+    padding-left: 20px;
+    z-index: 3;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: rgba(0,0,0,0);
+}
+.alerts_content_message:first-child{
+    transition: margin-top 0.5s;
+    margin-top: 10px;
+}
+
+.alerts_content_message{
+    margin-bottom: 10px;
+    min-height: 30px;
+    line-height: 25px;
+    max-width:370px;
+    width: 90%;
+    z-index: 1;
+    position: relative;
+    right: 0;
+    font-size: 1em;
+    border-radius: 5px;
+    color: #444;
+    background-color: #fbfbfb;
+    padding: 10px;
+    animation-name: show;
+    animation-duration: 0.8s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    overflow:hidden;
+    cursor: pointer;
+}
+.alerts_message{
+    width: 90%;
+    display: inline-block;
+    padding-right: 5px;
+}
+.alerts_hide{
+    right: -550px;
+    animation-name: hide;
+    animation-duration: 1s;
+    animation-fill-mode: backwards;
+}
+
+@keyframes show {
+    from {right: -550px;}
+    to {right: 0;}
+}
+@keyframes hide {
+    0%{
+        right: 0;
+    }
+    50%{
+        right: -550px;
+    }
+    100%{height: 0;min-height: 0;padding: 0;margin:0;}
+}
+
+@keyframes barra {
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 100%;
+    }
+}
+
+.alerts_content_message:hover .alerts_barra{
+    animation-play-state: paused;
+}
+
+.alerts_barra{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    animation-name: barra;
+    animation-duration: 15s;
+    animation-timing-function: ease;
+}
+
+.alerts_type_success{
+    border-left: 8px solid #4cae4c;
+}
+
+.alerts_type_success .alerts_barra{
+    background-image: linear-gradient(to right, #4cae4c, #0d460d); 
+}
+.alerts_type_info{
+    border-left: 8px solid #337ab7;
+}
+.alerts_type_info .alerts_barra{
+    background-image: linear-gradient(to right, #337ab7, #16344e); 
+}
+.alerts_type_warning{
+    border-left: 8px solid  #eea236;
+}
+.alerts_type_warning .alerts_barra{
+    background-image: linear-gradient(to right, #eea236, #5c3f17); 
+}
+.alerts_type_error{
+    border-left: 8px solid #e92f2f;
+}
+.alerts_type_error .alerts_barra{
+    background-image: linear-gradient(to right, #e92f2f, #7f1616); 
+}
+.alerts_close{
+    float: right;
+    cursor: pointer;
+    width: 10%;
+    line-height: 30px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.alerts_close:hover{
+    opacity: 0.7;
+}

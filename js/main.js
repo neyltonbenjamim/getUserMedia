@@ -42,10 +42,10 @@ window.addEventListener('DOMContentLoaded',function(){
                         media.setConstraints(true, false);
                         break;
                     case 'video':
-                        media.setConstraints(true, true);                        
+                        media.setConstraints(true, true);                   
                         break;
                     case 'audio':
-                        media.setConstraints(false, true);                        
+                        media.setConstraints(false, true);                     
                         break;
                 }
                 media.optionCamera().then( media => media.start() );
@@ -68,10 +68,12 @@ window.addEventListener('DOMContentLoaded',function(){
 
     let tiraFoto = document.querySelector('.js-tira-foto');
     tiraFoto.addEventListener('click',function(){
+        console.log('Tirando foto...');
+        new Alerts({type: 'success', message: 'Foto tirada'});
         let url = '';
         let canvas = document.createElement('canvas');
         let context = canvas.getContext('2d');
-        context.rotate(100 * Math.PI / 100);
+        // context.rotate(100 * Math.PI / 100);
         let video = document.getElementById('foto');
         canvas.width = video.offsetWidth;
         canvas.height = video.offsetHeight;
@@ -100,10 +102,31 @@ window.addEventListener('DOMContentLoaded',function(){
     })
 
 
-    let record = document.querySelectorAll('.js-media');
-    record.forEach(function(e){
+    let recordStart = document.querySelectorAll('.js-media');
+    recordStart.forEach(function(e){
         e.addEventListener('click',function(){
-            
+            media.recordStart(3000);
+            //js-media-play-pause
+            let playPause = this.parentElement.querySelector('.js-media-play-pause');
+            playPause.style.display = 'block';
+            playPause.querySelector('img').src = 'css/009-pause.png';
+        })
+    })
+
+    let recordStop = document.querySelectorAll('.js-media-stop');
+    recordStop.forEach(function(e){
+        e.addEventListener('click',function(){
+            media.recordStop();
+            let playPause = this.parentElement.querySelector('.js-media-play-pause');
+            playPause.style.display = 'none';
+            playPause.querySelector('img').src = 'css/008-play.png';
+        })
+    })
+
+    let playpause = document.querySelectorAll('.js-media-play-pause');
+    playpause.forEach(function(e){
+        e.addEventListener('click',function(){
+            media.recordPlayPause(this);
         })
     })
 

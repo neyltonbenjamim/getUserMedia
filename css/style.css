@@ -80,6 +80,7 @@
 .modal{
     display: flex;
     flex-flow: column;
+    align-items: center;
     min-width: 200px;
     min-height: 30%;
     background-color: #fbfbfb;;
@@ -135,6 +136,20 @@
 .controls .item img{
     width: 100%;
 }
-video{
-    transform: rotateY(180deg);
+.voice{
+    height: 50%;
+    margin: 30px;
+}
+
+.time{
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 120px;
+    text-align: center;
+    padding: 10px;
+    font-size: 2em;
+    color: white;
+    text-shadow: 0 0 2px #000;
+    background-color: rgba(0,0,0,0.3);
 }
