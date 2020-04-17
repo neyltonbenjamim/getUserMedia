@@ -73,7 +73,6 @@ window.addEventListener('DOMContentLoaded',function(){
         let url = '';
         let canvas = document.createElement('canvas');
         let context = canvas.getContext('2d');
-        // context.rotate(100 * Math.PI / 100);
         let video = document.getElementById('foto');
         canvas.width = video.offsetWidth;
         canvas.height = video.offsetHeight;

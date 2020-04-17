@@ -100,11 +100,21 @@ class Media
 
                 tagMedia.setAttribute('controls','');
 
-                tagMedia.setAttribute('src',window.URL.createObjectURL(blob));
+                let reader = new FileReader();
+                reader.addEventListener('load',function(event){
+                    tagMedia.src  =  event.target.result;
+                    document.querySelector('.content').appendChild(tagMedia);
+                })
 
-                document.querySelector('.content').appendChild(tagMedia);
-                
-                
+                reader.addEventListener('progress',function(event){
+                    if(event.lengthComputable){
+                        console.log((event.loaded/event.total*100).toFixed(2),'%');
+                        
+                    }
+                })
+
+                reader.readAsDataURL(blob);
+              
             }
         }else{
             new Alerts({type: 'error', message: 'Já tem uma gravação em andamento'});
