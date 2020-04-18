@@ -47,8 +47,7 @@ class Media
         }else{
             this.videoDevicesIndex++;
         }
-        this.video = { 
-                
+        this.video = {  
                 deviceId: { exact: this.videoDevices[this.videoDevicesIndex] } 
         }
         new Alerts({type: 'warning', message: 'Camera foi mudada'});
@@ -103,7 +102,7 @@ class Media
                 let reader = new FileReader();
                 reader.addEventListener('load',function(event){
                     tagMedia.src  =  event.target.result;
-                    document.querySelector('.content').appendChild(tagMedia);
+                    createBox(tagMedia);
                 })
 
                 reader.addEventListener('progress',function(event){

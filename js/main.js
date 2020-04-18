@@ -84,7 +84,7 @@ window.addEventListener('DOMContentLoaded',function(){
             reader.addEventListener('load',function(event){
                 let image = document.createElement('img');
                 image.src =  event.target.result;
-                document.querySelector('.content').appendChild(image);
+                createBox(image);
             })
 
             reader.addEventListener('progress',function(event){
@@ -147,3 +147,12 @@ window.addEventListener('DOMContentLoaded',function(){
     })
 
 });
+
+function createBox(media)
+{
+    let box = document.createElement('div');
+    box.setAttribute('class', 'box');
+    box.appendChild(media);
+    document.querySelector('.content').appendChild(box);
+    
+}

@@ -11,7 +11,7 @@
     <script src="js/class/Alerts.js"></script>
 </head>
 <body>
-    <div>
+    <div class="main">
 
         <div class="menu">
             <ul>
@@ -23,12 +23,13 @@
 
         <div class="container">
             <div class="content">
-
+                
             </div>
         </div>
   
     </div>
     <div class="full-modal full-modal-hide">
+        <span class="close-full-modal">X</span>
 
         <div class="modal modal-hide modal-tirar-foto">
             <video id="foto"></video>
