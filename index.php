@@ -9,6 +9,7 @@
     <script src="js/main.js"></script>
     <script src="js/class/Media.js"></script>
     <script src="js/class/Alerts.js"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=N4vgzamc"></script>
 </head>
 <body>
     <div class="main">

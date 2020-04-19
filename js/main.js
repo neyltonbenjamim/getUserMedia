@@ -1,6 +1,8 @@
 let media  = null;
 let fullModal = null;
 window.addEventListener('DOMContentLoaded',function(){
+    responsiveVoice.default_rv = responsiveVoice.responsivevoices[13];
+    //responsiveVoice.setDefaultVoice("US English Female");
 
    fullModal = document.querySelector('.full-modal');
 
