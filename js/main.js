@@ -2,61 +2,14 @@ let media  = null;
 let fullModal = null;
 window.addEventListener('DOMContentLoaded',function(){
     responsiveVoice.default_rv = responsiveVoice.responsivevoices[13];
+    
     //responsiveVoice.setDefaultVoice("US English Female");
+   
 
    fullModal = document.querySelector('.full-modal');
 
     document.querySelectorAll('.open-modal').forEach(function(e){
-        e.addEventListener('click',function(){
-            //Pega action atual
-            let action = this.getAttribute('data-action');
-            //Pega a camera atual
-            let camera = document.getElementById(action);
-
-            //Esconde todas modal
-            fullModal.querySelectorAll('.modal').forEach( (e) =>{
-                if(e.classList.contains('modal-hide') == false ){
-                    e.classList.add('modal-hide');
-                }
-            })
-
-            //Mostra Modal atual
-            camera.parentElement.classList.remove('modal-hide');
-
-            if(!media){
-                switch(action){
-                    case 'foto':
-                        media = new Media(camera,true,false);
-                        break;
-                    case 'video':
-                        media = new Media(camera,true,true);
-                        break;
-                    case 'audio':
-                        media = new Media(camera,false,true);
-                        break;
-                }
-                media.optionCamera().then( media => media.start() );
-            }else{
-                media.stop();
-                media.setMedia(camera);
-                switch(action){
-                    case 'foto':
-                        media.setConstraints(true, false);
-                        break;
-                    case 'video':
-                        media.setConstraints(true, true);                   
-                        break;
-                    case 'audio':
-                        media.setConstraints(false, true);                     
-                        break;
-                }
-                media.optionCamera().then( media => media.start() );
-            }
-            
-            fullModal.classList.remove('full-modal-hide');
-            
-            
-        });
+        e.addEventListener('click',openModal);
     });
 
     let change = document.querySelectorAll('.js-change-camera');
@@ -149,6 +102,59 @@ window.addEventListener('DOMContentLoaded',function(){
     })
 
 });
+
+function openModal(action = false)
+{
+        //Pega action atual
+        if(typeof action === 'object'){
+        action = this.getAttribute('data-action');
+    }
+
+        //Pega a camera atual
+        let camera = document.getElementById(action);
+
+        //Esconde todas modal
+        fullModal.querySelectorAll('.modal').forEach( (e) =>{
+            if(e.classList.contains('modal-hide') == false ){
+                e.classList.add('modal-hide');
+            }
+        })
+
+        //Mostra Modal atual
+        camera.parentElement.classList.remove('modal-hide');
+
+        if(!media){
+            switch(action){
+                case 'foto':
+                    media = new Media(camera,true,false);
+                    break;
+                case 'video':
+                    media = new Media(camera,true,true);
+                    break;
+                case 'audio':
+                    media = new Media(camera,false,true);
+                    break;
+            }
+            media.optionCamera().then( media => media.start() );
+        }else{
+            media.stop();
+            media.setMedia(camera);
+            switch(action){
+                case 'foto':
+                    media.setConstraints(true, false);
+                    break;
+                case 'video':
+                    media.setConstraints(true, true);                   
+                    break;
+                case 'audio':
+                    media.setConstraints(false, true);                     
+                    break;
+            }
+            media.optionCamera().then( media => media.start() );
+        }
+        
+        fullModal.classList.remove('full-modal-hide');
+}
 
 function createBox(media)
 {

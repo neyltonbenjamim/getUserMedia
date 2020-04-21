@@ -6,10 +6,11 @@
     <title>Get User Média</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/Alerts.css">
-    <script src="js/main.js"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=N4vgzamc"></script>
+    <script src="js/class/VoiceCommand.js"></script>
     <script src="js/class/Media.js"></script>
     <script src="js/class/Alerts.js"></script>
-    <script src="https://code.responsivevoice.org/responsivevoice.js?key=N4vgzamc"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
     <div class="main">
@@ -82,4 +83,5 @@
 
     </div>
 </body>
+
 </html>
