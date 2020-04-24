@@ -1,12 +1,13 @@
 let media  = null;
 let fullModal = null;
-window.addEventListener('DOMContentLoaded',function(){
-    responsiveVoice.default_rv = responsiveVoice.responsivevoices[13];
-    
-    //responsiveVoice.setDefaultVoice("US English Female");
-   
+let video = {width: {max: 1280, ideal: 1280, min: 1},height: {max: 720, ideal: 720, min: 1}};
+//height: {max: 720, ideal: 720, min: 1}
+// let video = {minWidth: 2560};
+let voiceCommad = new VoiceCommand();
 
-   fullModal = document.querySelector('.full-modal');
+window.addEventListener('DOMContentLoaded',function(){
+    speech();
+    fullModal = document.querySelector('.full-modal');
 
     document.querySelectorAll('.open-modal').forEach(function(e){
         e.addEventListener('click',openModal);
@@ -22,38 +23,7 @@ window.addEventListener('DOMContentLoaded',function(){
     })
 
     let tiraFoto = document.querySelector('.js-tira-foto');
-    tiraFoto.addEventListener('click',function(){
-        console.log('Tirando foto...');
-        new Alerts({type: 'success', message: 'Foto tirada'});
-        let url = '';
-        let canvas = document.createElement('canvas');
-        let context = canvas.getContext('2d');
-        let video = document.getElementById('foto');
-        canvas.width = video.offsetWidth;
-        canvas.height = video.offsetHeight;
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-       
-
-        canvas.toBlob(function(blob){
-            let reader = new FileReader();
-            reader.addEventListener('load',function(event){
-                let image = document.createElement('img');
-                image.src =  event.target.result;
-                createBox(image);
-            })
-
-            reader.addEventListener('progress',function(event){
-                if(event.lengthComputable){
-                    console.log((event.loaded/event.total*100).toFixed(2),'%');
-                    
-                }
-            })
-            
-            reader.readAsDataURL(blob);
-
-        }, 'image/jpeg', 0.95)
-        
-    })
+    tiraFoto.addEventListener('click', takePicture)
 
 
     let recordStart = document.querySelectorAll('.js-media');
@@ -103,6 +73,39 @@ window.addEventListener('DOMContentLoaded',function(){
 
 });
 
+function takePicture()
+{
+    console.log('Tirando foto...');
+    new Alerts({type: 'success', message: 'Foto tirada'});
+    let url = '';
+    let canvas = document.createElement('canvas');
+    let context = canvas.getContext('2d');
+    let video = document.getElementById('foto');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+
+    canvas.toBlob(function(blob){
+        let reader = new FileReader();
+        reader.addEventListener('load',function(event){
+            let image = document.createElement('img');
+            image.src =  event.target.result;
+            createBox(image);
+        })
+
+        reader.addEventListener('progress',function(event){
+            if(event.lengthComputable){
+                console.log((event.loaded/event.total*100).toFixed(2),'%');
+                
+            }
+        })
+        
+        reader.readAsDataURL(blob);
+
+    }, 'image/jpeg', 0.95)
+}
+
 function openModal(action = false)
 {
         //Pega action atual
@@ -126,10 +129,10 @@ function openModal(action = false)
         if(!media){
             switch(action){
                 case 'foto':
-                    media = new Media(camera,true,false);
+                    media = new Media(camera,video,false);
                     break;
                 case 'video':
-                    media = new Media(camera,true,true);
+                    media = new Media(camera,video,true);
                     break;
                 case 'audio':
                     media = new Media(camera,false,true);
@@ -141,10 +144,10 @@ function openModal(action = false)
             media.setMedia(camera);
             switch(action){
                 case 'foto':
-                    media.setConstraints(true, false);
+                    media.setConstraints(video, false);
                     break;
                 case 'video':
-                    media.setConstraints(true, true);                   
+                    media.setConstraints(video, true);                   
                     break;
                 case 'audio':
                     media.setConstraints(false, true);                     
@@ -164,3 +167,26 @@ function createBox(media)
     document.querySelector('.content').appendChild(box);
     
 }
+
+function speech()
+{
+    let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+    let recognizer = new SpeechRecognition();
+    recognizer.continuous = true;
+    recognizer.interimResults = false;
+    recognizer.lang = 'pt-BR';
+    recognizer.maxAlternatives = 2;
+    recognizer.start();
+    recognizer.addEventListener('result',(event) => {
+        
+        if(event.results[event.results.length -1].isFinal){
+            let command = event.results[event.results.length -1][0].transcript.trim().toLowerCase();
+            console.log(command);
+            if(voiceCommad.command[command]){
+                voiceCommad.command[command]();
+            }
+            
+        }    
+    });
+}
+

@@ -48,6 +48,7 @@ class Media
             this.videoDevicesIndex++;
         }
         this.video = {  
+                width: {max: 1280, ideal: 1280, min: 1},
                 deviceId: { exact: this.videoDevices[this.videoDevicesIndex] } 
         }
         new Alerts({type: 'warning', message: 'Camera foi mudada'});

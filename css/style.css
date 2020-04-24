@@ -91,6 +91,7 @@
 .box video, .box audio, .box img{
     width: 100%;
     outline: 0;
+    border-radius: 5px;
 }
 
 .full-modal{
@@ -114,10 +115,9 @@
     display: flex;
     flex-flow: column;
     align-items: center;
+    justify-content: center;
     min-width: 200px;
-    max-width: 90%;
-    min-height: 30%;
-    max-height: 80%;
+    max-width: 70%;
     background-color: #fbfbfb;;
     border-radius: 5px;
     box-shadow: 0 0 7px rgba(0,0,0,0.6),0 0 10px rgba(0,0,0,0.3);
@@ -133,6 +133,7 @@
 
 .modal video{
     width: 100%;
+    transform: rotateY(180deg);
 }
 .controls{
     width: 100%;
@@ -140,7 +141,7 @@
     bottom: 0;
     left: 0;
     height: 60px;
-    background-color: rgba(0,0,0,0.3);
+    background: linear-gradient(to top, rgba(0,0,0,1),rgba(0,0,0,0));
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
@@ -178,8 +179,9 @@
 
 .time{
     position: absolute;
-    bottom: 60px;
-    left: 0;
+    top: 5px;
+    left: 5px;
+    border-radius: 0 0 5px  0;
     width: 120px;
     text-align: center;
     padding: 10px;
@@ -201,6 +203,8 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    z-index: 1;
+    text-shadow: 0 0 5px black;
 }
 .close-full-modal:hover{
     opacity: 0.5;
