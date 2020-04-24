@@ -6,7 +6,9 @@ let video = {width: {max: 1280, ideal: 1280, min: 1},height: {max: 720, ideal: 7
 let voiceCommad = new VoiceCommand();
 
 window.addEventListener('DOMContentLoaded',function(){
-    speech();
+    let voice = new VoiceCommand();
+    voice.start();
+    
     fullModal = document.querySelector('.full-modal');
 
     document.querySelectorAll('.open-modal').forEach(function(e){
@@ -55,15 +57,7 @@ window.addEventListener('DOMContentLoaded',function(){
     })
 
 
-    document.querySelector('.full-modal').addEventListener('click',function(){
-        fullModal.querySelectorAll('.modal').forEach( (e) =>{
-            if(e.classList.contains('modal-hide') == false ){
-                e.classList.add('modal-hide');
-            }
-        })
-        fullModal.classList.add('full-modal-hide');
-        media.stop();
-    })
+    document.querySelector('.full-modal').addEventListener('click',closeCamera);
 
     document.querySelectorAll('.modal').forEach(function(e){
         e.addEventListener('click',function(event){
@@ -72,6 +66,17 @@ window.addEventListener('DOMContentLoaded',function(){
     })
 
 });
+
+function closeCamera()
+{
+    fullModal.querySelectorAll('.modal').forEach( (e) =>{
+        if(e.classList.contains('modal-hide') == false ){
+            e.classList.add('modal-hide');
+        }
+    })
+    fullModal.classList.add('full-modal-hide');
+    media.stop();
+}
 
 function takePicture()
 {
@@ -168,25 +173,5 @@ function createBox(media)
     
 }
 
-function speech()
-{
-    let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || null;
-    let recognizer = new SpeechRecognition();
-    recognizer.continuous = true;
-    recognizer.interimResults = false;
-    recognizer.lang = 'pt-BR';
-    recognizer.maxAlternatives = 2;
-    recognizer.start();
-    recognizer.addEventListener('result',(event) => {
-        
-        if(event.results[event.results.length -1].isFinal){
-            let command = event.results[event.results.length -1][0].transcript.trim().toLowerCase();
-            console.log(command);
-            if(voiceCommad.command[command]){
-                voiceCommad.command[command]();
-            }
-            
-        }    
-    });
-}
+
 
