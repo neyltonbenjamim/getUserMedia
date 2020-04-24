@@ -75,6 +75,7 @@ function closeCamera()
         }
     })
     fullModal.classList.add('full-modal-hide');
+    document.querySelectorAll('.js-media-play-pause').forEach(function(e){e.style.display = 'none'});
     media.stop();
 }
 
