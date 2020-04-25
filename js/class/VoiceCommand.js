@@ -5,16 +5,16 @@ class VoiceCommand
     {
         
         this.command = {
-            "abrir câmera"  : this.openCamera,
-            "abrir vídeo"   : this.openVideo,
-            "abrir áudio"   : this.openAudio,
-            "tirar foto"    : this.takePicture,
-            "fechar câmera" : this.closeCamera,
-            "fechar a câmera" : this.closeCamera,
-            "fechar vídeo" : this.closeCamera,
-            "fechar o vídeo" : this.closeCamera,
-            "fechar áudio" : this.closeCamera,
-            "fechar o áudio" : this.closeCamera,
+            "abrir câmera"      : this.openCamera,
+            "abrir vídeo"       : this.openVideo,
+            "abrir áudio"       : this.openAudio,
+            "tirar foto"        : this.takePicture,
+            "fechar câmera"     : this.closeCamera,
+            "fechar a câmera"   : this.closeCamera,
+            "fechar vídeo"      :this.closeCamera,
+            "fechar o vídeo"    : this.closeCamera,
+            "fechar áudio"      : this.closeCamera,
+            "fechar o áudio"    : this.closeCamera,
         }
 
         this.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || null;
@@ -32,23 +32,32 @@ class VoiceCommand
         this.result();
     }
 
+    abort()
+    {
+        this.recognizer.abort();
+    }
+
+    stop()
+    {
+        this.recognizer.stop();
+    }
+
     result()
     {
+        console.log('result')
         this.recognizer.addEventListener('result',(event) => {
-        
             if(event.results[event.results.length -1].isFinal){
                 let command = event.results[event.results.length -1][0].transcript.trim().toLowerCase();
                 console.log(command);
-                if(voiceCommad.command[command]){
-                    voiceCommad.command[command]();
+                if(this.command[command]){
+                    this.command[command]();
                 }
                 
             }    
         });
 
         this.recognizer.addEventListener('end', (event) =>{
-            this.recognizer.stop();
-            this.recognizer.start();
+            
         });
     }
 

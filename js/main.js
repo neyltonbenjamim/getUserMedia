@@ -1,14 +1,11 @@
 let media  = null;
+let voice = null;
 let fullModal = null;
 let video = {width: {max: 1280, ideal: 1280, min: 1},height: {max: 720, ideal: 720, min: 1}};
 //height: {max: 720, ideal: 720, min: 1}
 // let video = {minWidth: 2560};
-let voiceCommad = new VoiceCommand();
 
 window.addEventListener('DOMContentLoaded',function(){
-    let voice = new VoiceCommand();
-    voice.start();
-    
     fullModal = document.querySelector('.full-modal');
 
     document.querySelectorAll('.open-modal').forEach(function(e){
@@ -163,6 +160,12 @@ function openModal(action = false)
         }
         
         fullModal.classList.remove('full-modal-hide');
+}
+
+function startCommandVoice()
+{
+    voice = new VoiceCommand();
+    voice.start();
 }
 
 function createBox(media)
