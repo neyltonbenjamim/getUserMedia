@@ -84,7 +84,12 @@ class Media
             console.log('Record start');
             new Alerts({type: 'info', message: 'Gravação iniciada'});
             
-            this.mediaRecord = new MediaRecorder(this.stream);
+            let options = {
+                audioBitsPerSecond : 128000,
+                videoBitsPerSecond : 2500000
+              }
+
+            this.mediaRecord = new MediaRecorder(this.stream, options);
             this.mediaRecord.start();
             this.startTime();
 
@@ -99,6 +104,11 @@ class Media
                 let tagMedia = document.createElement(this.media.tagName.toLowerCase());
 
                 tagMedia.setAttribute('controls','');
+                // tagMedia.src = window.URL.createObjectURL(blob);
+                // tagMedia.onload = function() {
+                //     URL.revokeObjectURL(this.src);
+                // }
+                // createBox(tagMedia);
 
                 let reader = new FileReader();
                 reader.addEventListener('load',function(event){
@@ -183,16 +193,51 @@ class Media
         }
     }
 
-    start()
+    start(screen = false)
     {
         this.stop();
         console.log("Ligando camera...\n");
+        if(!screen){
+           this.getUserMedia();
+        }else{
+            this.getDisplayMedia();
+        }
+
+    }
+
+    getDisplayMedia()
+    {
+        navigator.mediaDevices.getDisplayMedia({
+            video:{
+                cursor:"always"
+            },
+            audio: {
+              echoCancellation: true,
+              noiseSuppression: true,
+              sampleRate: 44100
+            }
+        }).then((stream) => {
+            this.trackVideo = stream.getVideoTracks();
+            this.trackAudio = stream.getAudioTracks();
+            this.stream = stream;
+            this.media.srcObject = stream;
+            this.media.addEventListener('loadedmetadata',() => {
+                this.media.play(); 
+                this.media.muted = true;
+            });
+        })
+    }
+
+    getUserMedia()
+    {
+        
         navigator.mediaDevices.getUserMedia({ 
             video: this.video,
             audio: this.audio
             
         }).then((stream) => {
             this.trackVideo = stream.getVideoTracks();
+            this.trackAudio = stream.getAudioTracks();
             this.stream = stream;
             this.media.srcObject = stream;
 
@@ -202,7 +247,6 @@ class Media
             });
             
         })
-
     }
 
     convertTime(seg){

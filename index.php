@@ -19,6 +19,7 @@
                 <li><a class="open-modal" data-action="foto" href="javascript:void(0);">Tirar Foto</a></li>
                 <li><a class="open-modal" data-action="video" href="javascript:void(0);">Gravar Vídeo</a></li>
                 <li><a class="open-modal" data-action="audio" href="javascript:void(0);">Gravar Áudio</a></li>
+                <li><a class="open-modal" data-action="screen" href="javascript:void(0);">Gravar Screen</a></li>
             </ul>
         </div>
 
@@ -73,6 +74,22 @@
                 </div>
                 <div class="item js-media-play-pause" style="display:none;">
                     <img src="css/006-play-pause.png">
+                </div>
+                <div class="item js-media-stop">
+                    <img src="css/005-stop.png">
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-hide modal-gravar-screen">
+            <video id="screen"></video>
+            <div class="time">0:00</div>
+            <div class="controls">
+                <div class="item js-media">
+                    <img src="css/003-frame.png">
+                </div>
+                <div class="item js-media-play-pause" style="display:none;">
+                    <img src="css/009-pause.png">
                 </div>
                 <div class="item js-media-stop">
                     <img src="css/005-stop.png">

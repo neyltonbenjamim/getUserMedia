@@ -1,7 +1,14 @@
 let media  = null;
 let voice = null;
 let fullModal = null;
-let video = {width: {max: 1280, ideal: 1280, min: 1},height: {max: 720, ideal: 720, min: 1}};
+let video = {
+                width: {max: 1280, ideal: 1280, min: 1},
+                height: {max: 720, ideal: 720, min: 1},
+                frameRate : 60
+            };
+let screen = {
+    cursor: "always"
+}
 //height: {max: 720, ideal: 720, min: 1}
 // let video = {minWidth: 2560};
 
@@ -140,8 +147,10 @@ function openModal(action = false)
                 case 'audio':
                     media = new Media(camera,false,true);
                     break;
+                case 'screen':
+                    media = new Media(camera,screen,true);
+                    break;
             }
-            media.optionCamera().then( media => media.start() );
         }else{
             media.stop();
             media.setMedia(camera);
@@ -155,8 +164,17 @@ function openModal(action = false)
                 case 'audio':
                     media.setConstraints(false, true);                     
                     break;
+                case 'screen':
+                    media.setConstraints(screen, true); 
+                    break;
             }
+        }
+
+        if(action === 'screen'){
+            media.optionCamera().then( media => media.start(true) );
+        }else{
             media.optionCamera().then( media => media.start() );
+            
         }
         
         fullModal.classList.remove('full-modal-hide');
