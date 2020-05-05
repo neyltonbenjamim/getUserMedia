@@ -1,4 +1,5 @@
 let media  = null;
+let fullScreen = false;
 let audio = null;
 let voice = null;
 let fullModal = null;
@@ -67,6 +68,21 @@ window.addEventListener('DOMContentLoaded',function(){
     document.querySelectorAll('.modal').forEach(function(e){
         e.addEventListener('click',function(event){
             event.stopPropagation();
+        })
+    })
+
+    document.querySelectorAll('.js-full-screen').forEach(function(e){
+        e.addEventListener('click',function(){
+            console.log(this);
+            if(fullScreen){
+                fullScreen = false;
+                this.firstElementChild.src = 'css/002-interface.png';
+                document.exitFullscreen()
+            }else{
+                fullScreen = true;
+                this.firstElementChild.src = 'css/001-concentric.png';
+                this.parentElement.parentElement.requestFullscreen()
+            }
         })
     })
 

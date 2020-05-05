@@ -100,9 +100,6 @@
                 <div class="item js-media-stop">
                     <img src="css/005-stop.png">
                 </div>
-                <div class="item js-require-voice">
-                    <img src="css/003-diagonal.png">
-                </div>
             </div>
         </div>
 
