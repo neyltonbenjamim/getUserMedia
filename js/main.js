@@ -1,4 +1,5 @@
 let media  = null;
+let audio = null;
 let voice = null;
 let fullModal = null;
 let video = {
@@ -81,6 +82,10 @@ function closeCamera()
     fullModal.classList.add('full-modal-hide');
     document.querySelectorAll('.js-media-play-pause').forEach(function(e){e.style.display = 'none'});
     media.stop();
+    if(!!audio){
+        audio.stop();
+        audio = null;
+    }
 }
 
 function takePicture()
@@ -171,7 +176,9 @@ function openModal(action = false)
         }
 
         if(action === 'screen'){
-            media.optionCamera().then( media => media.start(true) );
+            audio = new Media(camera,false,true);
+            audio.optionCamera().then( media => media.start() );
+            media.optionCamera().then( media => media.start(audio) );
         }else{
             media.optionCamera().then( media => media.start() );
             
@@ -193,6 +200,15 @@ function createBox(media)
     box.appendChild(media);
     document.querySelector('.content').appendChild(box);
     
+}
+
+function createLinkDownload(link)
+{
+    let a = document.createElement('a');
+    a.setAttribute('download',link);
+    a.innerHTML = 'link de download';
+    a.setAttribute('href',link);
+    document.querySelector('.content').appendChild(a);
 }
 
 

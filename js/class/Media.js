@@ -21,6 +21,10 @@ class Media
         
         this.stream = null;
 
+        //conetextAudio
+        this.contextAudio = null;
+        this.audioContext = null;
+
     }
 
     setMedia(media)
@@ -109,6 +113,11 @@ class Media
                 //     URL.revokeObjectURL(this.src);
                 // }
                 // createBox(tagMedia);
+
+                let url = window.URL.createObjectURL(blob);
+                
+
+                createLinkDownload(url);
 
                 let reader = new FileReader();
                 reader.addEventListener('load',function(event){
@@ -200,12 +209,38 @@ class Media
         if(!screen){
            this.getUserMedia();
         }else{
-            this.getDisplayMedia();
+            this.getDisplayMedia(screen);
         }
 
     }
 
-    getDisplayMedia()
+    mixAudio(stream,media)
+    {
+        this.audioContext = new AudioContext();
+        
+        this.destination = this.audioContext.createMediaStreamDestination();
+
+        if(this.trackAudio.length > 0){
+            let source = this.audioContext.createMediaStreamSource(stream);
+            let gain = this.audioContext.createGain();
+            gain.gain.value = 0.7;
+            source.connect(gain).connect(this.destination);
+        }
+
+        if(media instanceof Media){
+            if(media.trackAudio.length > 0){
+                let source = this.audioContext.createMediaStreamSource(media.stream);
+                let gain = this.audioContext.createGain();
+                gain.gain.value = 0.7;
+                source.connect(gain).connect(this.destination);
+            }
+        }
+
+        return this.destination.stream.getAudioTracks();
+
+    }
+
+    getDisplayMedia(media)
     {
         navigator.mediaDevices.getDisplayMedia({
             video:{
@@ -219,7 +254,11 @@ class Media
         }).then((stream) => {
             this.trackVideo = stream.getVideoTracks();
             this.trackAudio = stream.getAudioTracks();
-            this.stream = stream;
+
+            let tracks = [...stream.getVideoTracks(), ...this.mixAudio(stream,media)];
+            let mediaStream = new MediaStream(tracks);
+
+            this.stream = mediaStream;
             this.media.srcObject = stream;
             this.media.addEventListener('loadedmetadata',() => {
                 this.media.play(); 

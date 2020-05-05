@@ -42,6 +42,9 @@
                 <div class="item js-change-camera">
                   <img src="css/002-change.png">
                 </div>
+                <div class="item js-full-screen">
+                  <img src="css/002-interface.png">
+                </div>
             </div>
         </div>
         
@@ -60,6 +63,9 @@
                 </div>
                 <div class="item js-change-camera">
                   <img src="css/002-change.png">
+                </div>
+                <div class="item js-full-screen">
+                  <img src="css/002-interface.png">
                 </div>
             </div>
         </div>
@@ -93,6 +99,9 @@
                 </div>
                 <div class="item js-media-stop">
                     <img src="css/005-stop.png">
+                </div>
+                <div class="item js-require-voice">
+                    <img src="css/003-diagonal.png">
                 </div>
             </div>
         </div>
