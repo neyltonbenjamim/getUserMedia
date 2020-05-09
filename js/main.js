@@ -141,8 +141,8 @@ function openModal(action = false)
 {
         //Pega action atual
         if(typeof action === 'object'){
-        action = this.getAttribute('data-action');
-    }
+            action = this.getAttribute('data-action');
+        }
 
         //Pega a camera atual
         let camera = document.getElementById(action);

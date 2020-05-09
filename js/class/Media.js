@@ -21,9 +21,10 @@ class Media
         
         this.stream = null;
 
-        //conetextAudio
+        //contextAudio
         this.contextAudio = null;
         this.audioContext = null;
+        this.mediaStream = null;
 
     }
 
@@ -91,9 +92,17 @@ class Media
             let options = {
                 audioBitsPerSecond : 128000,
                 videoBitsPerSecond : 2500000
-              }
+            }
 
-            this.mediaRecord = new MediaRecorder(this.stream, options);
+            let stream = '';
+
+            if(this.mediaStream){
+                stream = this.mediaStream;
+            }else{
+                stream = this.stream;
+            }
+
+            this.mediaRecord = new MediaRecorder(stream, options);
             this.mediaRecord.start();
             this.startTime();
 
@@ -195,10 +204,9 @@ class Media
         this.recordStop();
         if(this.stream){
             console.log("Desligando camera...\n");
-            this.media.srcObject
-            .getTracks()
-            .forEach(track => track.stop())
+            this.stream.getTracks().forEach(track => track.stop());
             this.stream = null;
+            this.mediaStream = null;
         }
     }
 
@@ -256,10 +264,10 @@ class Media
             this.trackAudio = stream.getAudioTracks();
 
             let tracks = [...stream.getVideoTracks(), ...this.mixAudio(stream,media)];
-            let mediaStream = new MediaStream(tracks);
+            this.mediaStream = new MediaStream(tracks);
 
-            this.stream = mediaStream;
-            this.media.srcObject = stream;
+            this.stream = stream;
+            this.media.srcObject = this.stream;
             this.media.addEventListener('loadedmetadata',() => {
                 this.media.play(); 
                 this.media.muted = true;
