@@ -134,6 +134,9 @@
 .modal video{
     width: 100%;
 }
+.rotate_user{
+    transform: rotateY(180deg);
+}
 .controls{
     width: 100%;
     position: absolute;

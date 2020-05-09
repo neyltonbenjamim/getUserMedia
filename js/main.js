@@ -221,7 +221,7 @@ function createBox(media)
 function createLinkDownload(link)
 {
     let a = document.createElement('a');
-    a.setAttribute('download',link);
+    a.setAttribute('download',btoa(link));
     a.innerHTML = 'link de download';
     a.setAttribute('href',link);
     document.querySelector('.content').appendChild(a);

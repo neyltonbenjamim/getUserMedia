@@ -287,6 +287,7 @@ class Media
             this.trackAudio = stream.getAudioTracks();
             this.stream = stream;
             this.media.srcObject = stream;
+            this.media.setAttribute('class','rotate_'+this.trackVideo[0].getSettings().facingMode);
 
             this.media.addEventListener('loadedmetadata',() => {
                 this.media.play(); 
